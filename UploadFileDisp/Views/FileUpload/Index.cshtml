@@ -1,0 +1,50 @@
+﻿@{
+    
+    ViewBag.Title = "Index";
+}
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#b1").click(function () {
+            var file_data = $('#photo').prop('files')[0];
+            var form_data = new FormData();
+            form_data.append('MyFile', file_data);
+            $.ajax({
+                url: "/FileUpload/UploadFile",
+                type: "post",
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+               
+                success: function (str) {
+                  
+                    $("#showData").contents().find('body').append(str);
+                },
+                error: function (xhr, status, error) {
+                    alert(error);
+                }
+            });
+        });
+    });
+</script>
+
+
+<h2>Basic File Upload</h2>
+
+
+
+
+    <label for="photo">Photo:</label>
+    <input type="file" name="photo" id="photo" />
+
+    <input type="button" value="Upload" id="b1"/>
+    <br>
+    <br>
+   <iframe id="showData" style="
+    width: 100%;
+    height: 600px;
+"></iframe>
+
+
+
